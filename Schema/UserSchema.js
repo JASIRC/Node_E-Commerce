@@ -24,8 +24,17 @@ const userScheme=new mongoose.Schema({
     },
     isDeleted:{
         type:Boolean,
-        required:false
-    }
+        required:true,
+        default:false
+    },
+    cart:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "cart"
+    }],
+    wishList:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"wishList"
+    }]
 });
-const User =mongoose.model("User",userScheme);
+const User = mongoose.model("User",userScheme);
 export default User;

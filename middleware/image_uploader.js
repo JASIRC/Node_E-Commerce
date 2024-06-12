@@ -21,7 +21,7 @@ const upload = multer({
     fileSize: 4 * 1024 * 1024,
   },
 });
-
+  
 const uploadImage = (req, res, next) => {
   console.log("salman");
   upload.single("image")(req, res, async (error) => {
