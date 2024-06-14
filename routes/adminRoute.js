@@ -3,11 +3,12 @@ import uploadImage from '../middleware/image_uploader.js';
 import { allProductView, createProduct, deleteProduct, specificProduct, updateProduct, viewCategoryWise} from '../controller/adminProductController.js';
 import { adminLogin, deleteUser, userBlockandUnblock, viewAllUser, viewSpecificUser, viewUserNameWise } from '../controller/adminUserController.js';
 import { adminToken } from '../middleware/admin_jwt_token.js';
+import { adminOrder, revenue } from '../controller/adminOrderController.js';
 
 const router=express.Router()
 
 router.post('/login',adminLogin);
-router.use(adminToken);
+// router.use(adminToken);
 
 
 router.get('/usersdata',viewAllUser);
@@ -23,4 +24,7 @@ router.get('/viewProducts/:category',viewCategoryWise);
 router.patch('/updateProduct/:id',updateProduct);
 router.delete('/deleteProduct/:id',deleteProduct);
 
+
+router.get('/orders', adminOrder);
+router.get('/revenue', revenue);
 export default router

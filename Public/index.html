@@ -8,8 +8,33 @@ var options = {
     "name": "JASI PVT LTD", //your business name
     "description": "Test Transaction",
     "image": "https://i.pinimg.com/originals/49/e6/f2/49e6f2458e550a4491ba470829dc2028.png",
-    "order_id": "order_OMEy4Sc020Va5l", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+    "order_id": "order_OMbfHQpQoDjtIv", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+
+    "handler": function (response){
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature);
+        console.log(response.razorpay_payment_id);
+        console.log(response.razorpay_order_id);
+        console.log(response.razorpay_signature);
+
+  // Send these details to the server for verification and order completion
+  fetch('/your-verification-endpoint', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature,
+                userid: 'UserId' 
+            })
+        }).then(res => res.json())
+          .then(data => console.log(data))
+          .catch(error => console.error(error));
+    },
+
     "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
         "name": "Jasir c", //your customer's name
         "email": "jasir@gmail.com",
@@ -23,6 +48,15 @@ var options = {
     }
 };
 var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+    alert(response.error.code);
+    alert(response.error.description);
+    alert(response.error.source);
+    alert(response.error.step);
+    alert(response.error.reason);
+    alert(response.error.metadata.order_id);
+    alert(response.error.metadata.payment_id);
+});
 document.getElementById('rzp-button1').onclick = function(e){
     rzp1.open();
     e.preventDefault();

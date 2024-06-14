@@ -1,4 +1,4 @@
-import Orders from "../Schema/orderSchema"
+import Orders from "../Schema/orderSchema.js"
 
 
 export const adminOrder= async(req,res,next)=>{

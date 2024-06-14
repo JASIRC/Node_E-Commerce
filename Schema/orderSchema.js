@@ -1,16 +1,21 @@
-import { required } from "joi"
-import mongoose from mongoose
+import mongoose from 'mongoose';
 
 const orderSchema = new mongoose.Schema({
     userId:{
-        type:mongoose.Schema.Types.objectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref:"User",
         required:true
     },
-    productId:[{
-        type:mongoose.Schema.Types.objectId,
-        ref:"Product",
-        required:true
+    products:[{
+        productId:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Product",
+            required:true
+        },
+        quantity:{
+            type:Number,
+            required:true
+        }
     }],
     purchaseDate:{
         type:Date,
@@ -30,7 +35,11 @@ const orderSchema = new mongoose.Schema({
         type:Number,
         required:true
     },
-    peymentId:{
+    totalItem:{
+        type:Number,
+        required:true
+    },
+    paymentId:{
         type:String,
         required:true
     }

@@ -34,6 +34,10 @@ const userScheme=new mongoose.Schema({
     wishList:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"wishList"
+    }],
+    orders:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"orders"
     }]
 });
 const User = mongoose.model("User",userScheme);
